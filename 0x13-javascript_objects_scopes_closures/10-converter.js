@@ -1,5 +1,6 @@
+#!/usr/bin/node
 
-rts.converter = function (base) {
+exports.converter = function (base) {
   return function (num) {
     return num.toString(base);
   };
