@@ -4,12 +4,22 @@
 - sends a POST request to the passed URL with the email as a parameter,
 - displays the body of the response.
 """
+import requests
 import sys
-import urllib.request
+
+def send_post_request(url, email):
+    payload = {'email': email}
+    response = requests.post(url, data=payload)
+    return response.text
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python script.py <URL> <email>")
+        sys.exit(1)
+    
     url = sys.argv[1]
+    email = sys.argv[2]
 
-    request = urllib.request.Request(url)
-    with urllib.request.urlopen(request) as response:
-        print(dict(response.headers).get("X-Request-Id"))
+    response_body = send_post_request(url, email)
+    print("Response Body:")
+    print(response_body)
